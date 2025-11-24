@@ -1,7 +1,7 @@
 name: youtube_details
 description: A Dart & Flutter package to fetch YouTube Channel Details, Videos, Shorts, Posts & Single Video Details — No API Key Required.
 version: 1.0.0
-homepage: https://github.com/bittudev-coder/youtube_details
+homepage: https://github.com/bittudev-coder
 repository: https://github.com/bittudev-coder/youtube_details
 issue_tracker: https://github.com/bittudev-coder/youtube_details/issues
 
