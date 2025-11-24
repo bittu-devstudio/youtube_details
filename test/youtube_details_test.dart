@@ -27,7 +27,7 @@ void main() {
     });
 
     test('Video Details Working', () async {
-      final video = await yb.fetchVideoDetails(videoId: "yhCTP-81tZ0");
+      final video = await yb.fetchVideoDetails(videoId: 'yhCTP-81tZ0');
       expect(video, isNotNull);
     });
   });
