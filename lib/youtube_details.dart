@@ -26,21 +26,13 @@
 /// ```
 ///
 /// This library exports all public-facing models and the main API class.
-library;
+library youtube_details;
 
 export 'src/youtube_details_base.dart';
-export 'src/youtube_details_base.dart';
+
+/// Models
 export 'src/Model/channel_details_model.dart';
 export 'src/Model/posts_model.dart';
 export 'src/Model/shorts_model.dart';
 export 'src/Model/video_model.dart';
 export 'src/Model/videos_model.dart';
-
-/// Data models
-export 'src/Model/channel_details_model.dart';
-export 'src/Model/posts_model.dart';
-export 'src/Model/shorts_model.dart';
-export 'src/Model/video_model.dart';
-export 'src/Model/videos_model.dart';
-
-/// TODO: Export additional files intended for clients of this package.
