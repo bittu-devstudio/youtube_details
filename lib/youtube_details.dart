@@ -26,7 +26,7 @@
 /// ```
 ///
 /// This library exports all public-facing models and the main API class.
-library youtube_details;
+library;
 
 export 'src/youtube_details_base.dart';
 
