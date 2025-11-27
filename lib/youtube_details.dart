@@ -36,3 +36,4 @@ export 'src/Model/posts_model.dart';
 export 'src/Model/shorts_model.dart';
 export 'src/Model/video_model.dart';
 export 'src/Model/videos_model.dart';
+export 'src/Model/search_model.dart';
