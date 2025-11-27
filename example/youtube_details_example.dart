@@ -64,4 +64,46 @@ Future<void> main() async {
   } catch (e) {
     print('\n❌ Error Occurred: $e');
   }
+
+  // ---------------------------
+  // Fetch Search Video Shorts Details
+  // ---------------------------
+  print('\n🔹 Fetch Search Video Shorts Details...');
+  try {
+    final searchResponse = await yt.fetchYoutubeSearch('bhojpuri song');
+
+    if (searchResponse == null) {
+      print('❌ Failed to fetch channel videos and shorts');
+      return;
+    }
+
+    // ---------------------------
+    // Print Videos
+    // ---------------------------
+    print('\n🎬 Videos:');
+    for (var video in searchResponse.videos) {
+      print('Title: ${video.title}');
+      print('Video ID: ${video.videoId}');
+      print('Channel: ${video.channel}');
+      print('Views: ${video.views}');
+      print('Published: ${video.published}');
+      print('Thumbnail: ${video.thumbnail}');
+      print('Duration: ${video.duration}');
+      print('-----------------------------------');
+    }
+
+    // ---------------------------
+    // Print Shorts
+    // ---------------------------
+    print('\n🎥 Shorts:');
+    for (var short in searchResponse.shorts) {
+      print('Title: ${short.title}');
+      print('Short URL: ${short.shortUrl}');
+      print('Views: ${short.views}');
+      print('Thumbnail: ${short.thumbnailUrl}');
+      print('-----------------------------------');
+    }
+  } catch (e) {
+    print('\n❌ Error Occurred: $e');
+  }
 }

@@ -1,3 +1,15 @@
+## 1.0.3 — YouTube Search Query Support 🔍
+
+- Added `fetchSearch(String query)` method in `YouTubeDetails`
+  - Fetch videos and shorts using any YouTube search query
+  - Returns a `SearchResponse` object containing:
+    - `videos` → List of `SearchVideoModel`
+    - `shorts` → List of `SearchShortModel`
+- Introduced `SearchResponse`, `SearchVideoModel`, and `SearchShortModel` classes
+- Integrated `YouTubeScraper` for parsing `ytInitialData` from search results
+- Updated example project to demonstrate fetching videos & shorts by search query
+- Fixed undefined method issue for search functionality
+
 ## 1.0.2 — Code Formatting Improvements 🧹
 
 - Applied `dart format` across the entire project
@@ -25,4 +37,4 @@
 ### What's Next?
 - Pagination for videos & shorts
 - Fetch comments
-- Download thumbnails in HD & 4K fix
+- Download thumbnails in HD & 4K

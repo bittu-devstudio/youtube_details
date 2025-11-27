@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:youtube_details/src/Config/youtube_scraper.dart';
 import 'package:youtube_details/src/Model/channel_details_model.dart';
+import 'package:youtube_details/src/Model/search_model.dart';
 import 'package:youtube_details/src/Model/videos_model.dart';
 
 import 'Config/string_config.dart';
@@ -451,5 +453,49 @@ class YouTubeDetails {
       print('Exception: $e');
       return null;
     }
+  }
+
+  /// Fetches detailed information Search YouTube videos and shorts.
+  Future<SearchResponse?> fetchYoutubeSearch(String search) async {
+    if (search.isEmpty) return null;
+
+    final url = "$searchUrl${Uri.encodeComponent(search)}";
+
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"},
+    );
+
+    if (response.statusCode != 200) return null;
+
+    final html = response.body;
+
+    // Use Scraper class for parsing
+    final scraper = YouTubeScraper();
+
+    final jsonData = scraper.extractYtInitialData(html);
+    if (jsonData == null) return null;
+
+    final data = jsonDecode(jsonData);
+    if (data == null) return null;
+
+    final tabs = data["contents"]["twoColumnSearchResultsRenderer"]
+                ["primaryContents"]["sectionListRenderer"]["contents"][0]
+            ["itemSectionRenderer"]["contents"] ??
+        [];
+
+    final result = scraper.extractVideosAndShorts(tabs);
+
+    // Map JSON data to typed models
+    final videos = (result["videos"] as List<dynamic>)
+        .map((v) => SearchVideoModel.fromJson(v))
+        .toList();
+
+    final shorts = scraper
+        .extractShortsRecursive(result["shorts"])
+        .map((s) => SearchShortModel.fromJson(s))
+        .toList();
+
+    return SearchResponse(videos: videos, shorts: shorts);
   }
 }
