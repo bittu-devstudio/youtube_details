@@ -495,7 +495,6 @@ class YouTubeDetails {
         .extractShortsRecursive(result["shorts"])
         .map((s) => SearchShortModel.fromJson(s))
         .toList();
-    print(shorts);
     return SearchResponse(videos: videos, shorts: shorts);
   }
 }

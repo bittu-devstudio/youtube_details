@@ -1,3 +1,6 @@
+1.0.5 — Code Formatting & Stability Improvements 🧹⚙️
+Bugs Fixes
+
 1.0.4 — Code Formatting & Stability Improvements 🧹⚙️
 ✅ Fixed: Crash in “Fetch Search Video Shorts Details”
 

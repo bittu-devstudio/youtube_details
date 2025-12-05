@@ -72,8 +72,9 @@ class SearchVideoModel {
       title: json['title'] ?? '',
       description: json['description'] ?? '',
       thumbnail: json['thumbnail'] ?? '',
-      thumbWidth: int.tryParse(json['thumb_width']?.toString() ?? '0') ?? 0,
-      thumbHeight: int.tryParse(json['thumb_height']?.toString() ?? '0') ?? 0,
+      thumbWidth: int.tryParse(json['thumb_width']?.toString() ?? '360') ?? 360,
+      thumbHeight:
+          int.tryParse(json['thumb_height']?.toString() ?? '202') ?? 202,
       views: json['views'] ?? '',
       published: json['published'] ?? '',
       channel: json['channel'] ?? '',
@@ -126,9 +127,9 @@ class SearchShortModel {
       views: json['views'] ?? '',
       thumbnailUrl: json['thumbnail_url'] ?? '',
       thumbnailWidth:
-          int.tryParse(json['thumbnail_width']?.toString() ?? '0') ?? 0,
+          int.tryParse(json['thumbnail_width']?.toString() ?? '405') ?? 405,
       thumbnailHeight:
-          int.tryParse(json['thumbnail_height']?.toString() ?? '0') ?? 0,
+          int.tryParse(json['thumbnail_height']?.toString() ?? '720') ?? 720,
     );
   }
 }
