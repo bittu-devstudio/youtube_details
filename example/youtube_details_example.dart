@@ -82,16 +82,7 @@ Future<void> main() async {
     // ---------------------------
     print('\n🎬 Videos:');
     for (var video in searchResponse.videos) {
-      print('Title: ${video.title}');
-      print('Thumbnail: ${video.thumbHeight}');
-      print('Duration: ${video.thumbWidth}');
-      print('Video ID: ${video.videoId}');
-      print('Channel: ${video.channel}');
-      print('Views: ${video.views}');
-      print('Published: ${video.published}');
-      print('Thumbnail: ${video.thumbnail}');
-      print('Duration: ${video.duration}');
-      print('-----------------------------------');
+        print(video.toJson());
     }
 
     // ---------------------------

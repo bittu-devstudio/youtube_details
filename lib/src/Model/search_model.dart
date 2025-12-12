@@ -17,40 +17,18 @@ class SearchResponse {
 
 /// Represents a single standard YouTube video in a search result.
 class SearchVideoModel {
-  /// Unique YouTube video ID.
   final String videoId;
-
-  /// Title of the video.
   final String title;
-
-  /// Description of the video.
   final String description;
-
-  /// URL of the video thumbnail.
   final String thumbnail;
-
-  /// Width of the thumbnail in pixels.
   final int thumbWidth;
-
-  /// Height of the thumbnail in pixels.
   final int thumbHeight;
-
-  /// View count of the video as a formatted string (e.g., "1.2M views").
   final String views;
-
-  /// Time since video was published (e.g., "2 weeks ago").
   final String published;
-
-  /// Name of the channel that uploaded the video.
   final String channel;
-
-  /// URL of the channel's profile image.
   final String channelThumb;
-
-  /// Duration of the video (e.g., "12:34").
   final String duration;
 
-  /// Creates a new `SearchVideoModel` instance.
   SearchVideoModel({
     required this.videoId,
     required this.title,
@@ -65,7 +43,6 @@ class SearchVideoModel {
     required this.duration,
   });
 
-  /// Creates a `SearchVideoModel` from JSON data.
   factory SearchVideoModel.fromJson(Map<String, dynamic> json) {
     return SearchVideoModel(
       videoId: json['videoId'] ?? '',
@@ -82,7 +59,25 @@ class SearchVideoModel {
       duration: json['duration'] ?? '',
     );
   }
+
+  /// ✔ Converts model to JSON map
+  Map<String, dynamic> toJson() {
+    return {
+      'videoId': videoId,
+      'title': title,
+      'description': description,
+      'thumbnail': thumbnail,
+      'thumb_width': thumbWidth,
+      'thumb_height': thumbHeight,
+      'views': views,
+      'published': published,
+      'channel': channel,
+      'channel_thumb': channelThumb,
+      'duration': duration,
+    };
+  }
 }
+
 /// Full Shorts data model (supports complete YouTube Shorts metadata)
 /// 
 class SearchShortModel {
