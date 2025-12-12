@@ -17,40 +17,18 @@ class SearchResponse {
 
 /// Represents a single standard YouTube video in a search result.
 class SearchVideoModel {
-  /// Unique YouTube video ID.
   final String videoId;
-
-  /// Title of the video.
   final String title;
-
-  /// Description of the video.
   final String description;
-
-  /// URL of the video thumbnail.
   final String thumbnail;
-
-  /// Width of the thumbnail in pixels.
   final int thumbWidth;
-
-  /// Height of the thumbnail in pixels.
   final int thumbHeight;
-
-  /// View count of the video as a formatted string (e.g., "1.2M views").
   final String views;
-
-  /// Time since video was published (e.g., "2 weeks ago").
   final String published;
-
-  /// Name of the channel that uploaded the video.
   final String channel;
-
-  /// URL of the channel's profile image.
   final String channelThumb;
-
-  /// Duration of the video (e.g., "12:34").
   final String duration;
 
-  /// Creates a new `SearchVideoModel` instance.
   SearchVideoModel({
     required this.videoId,
     required this.title,
@@ -65,7 +43,6 @@ class SearchVideoModel {
     required this.duration,
   });
 
-  /// Creates a `SearchVideoModel` from JSON data.
   factory SearchVideoModel.fromJson(Map<String, dynamic> json) {
     return SearchVideoModel(
       videoId: json['videoId'] ?? '',
@@ -82,32 +59,63 @@ class SearchVideoModel {
       duration: json['duration'] ?? '',
     );
   }
+
+  /// ✔ Converts model to JSON map
+  Map<String, dynamic> toJson() {
+    return {
+      'videoId': videoId,
+      'title': title,
+      'description': description,
+      'thumbnail': thumbnail,
+      'thumb_width': thumbWidth,
+      'thumb_height': thumbHeight,
+      'views': views,
+      'published': published,
+      'channel': channel,
+      'channel_thumb': channelThumb,
+      'duration': duration,
+    };
+  }
 }
 
-/// Represents a single YouTube Short in a search result.
+/// Full Shorts data model (supports complete YouTube Shorts metadata)
+/// 
 class SearchShortModel {
-  /// Unique YouTube video ID.
+  /// Basic Info
   final String videoId;
-
-  /// Relative URL for the short (e.g., `/shorts/VIDEO_ID`).
   final String shortUrl;
-
-  /// Title of the Short.
   final String title;
-
-  /// View count of the Short as a formatted string (e.g., "500K views").
   final String views;
 
-  /// URL of the Short's thumbnail.
+  /// Main Thumbnail
   final String thumbnailUrl;
-
-  /// Width of the thumbnail in pixels.
   final int thumbnailWidth;
-
-  /// Height of the thumbnail in pixels.
   final int thumbnailHeight;
 
-  /// Creates a new `SearchShortModel` instance.
+  /// All thumbnails list
+  final List<Map<String, dynamic>> thumbnails;
+
+  /// Reel Watch Endpoint
+  final Map<String, dynamic> reelWatchEndpoint;
+
+  /// Inline Watch Endpoint
+  final Map<String, dynamic> inlineWatch;
+
+  /// Menu actions
+  final Map<String, dynamic>? menu;
+
+  /// Metadata
+  final Map<String, dynamic>? overlayMetadata;
+
+  /// Logging
+  final Map<String, dynamic>? loggingDirectives;
+
+  /// Position in list
+  final int? indexInCollection;
+
+  /// Extra raw block
+  final Map<String, dynamic>? extra;
+
   SearchShortModel({
     required this.videoId,
     required this.shortUrl,
@@ -116,20 +124,88 @@ class SearchShortModel {
     required this.thumbnailUrl,
     required this.thumbnailWidth,
     required this.thumbnailHeight,
+    required this.thumbnails,
+    required this.reelWatchEndpoint,
+    required this.inlineWatch,
+    required this.menu,
+    required this.overlayMetadata,
+    required this.loggingDirectives,
+    required this.indexInCollection,
+    this.extra,
   });
 
-  /// Creates a `SearchShortModel` from JSON data.
+  /// -------- JSON PARSER --------
   factory SearchShortModel.fromJson(Map<String, dynamic> json) {
+    // Read thumbnails safely
+    final List thumbs =
+        (json["thumbnails"] is List) ? json["thumbnails"] : [];
+
+    final thumb = thumbs.isNotEmpty ? thumbs[0] : null;
+
     return SearchShortModel(
-      videoId: json['videoId'] ?? '',
-      shortUrl: json['shortUrl'] ?? '',
-      title: json['title'] ?? '',
-      views: json['views'] ?? '',
-      thumbnailUrl: json['thumbnail_url'] ?? '',
-      thumbnailWidth:
-          int.tryParse(json['thumbnail_width']?.toString() ?? '405') ?? 405,
-      thumbnailHeight:
-          int.tryParse(json['thumbnail_height']?.toString() ?? '720') ?? 720,
+      videoId: json['videoId']?.toString() ?? '',
+      shortUrl: json['shortUrl']?.toString() ?? '',
+      title: json['title']?.toString() ?? '',
+      views: json['views']?.toString() ?? '',
+
+      /// Main thumbnail
+      thumbnailUrl: thumb?['url'] ?? '',
+      thumbnailWidth: (thumb?['width'] is int)
+          ? thumb['width']
+          : int.tryParse(thumb?['width']?.toString() ?? '0') ?? 0,
+      thumbnailHeight: (thumb?['height'] is int)
+          ? thumb['height']
+          : int.tryParse(thumb?['height']?.toString() ?? '0') ?? 0,
+
+      /// Full list of thumbnails
+      thumbnails: List<Map<String, dynamic>>.from(thumbs),
+
+      /// Endpoints
+      reelWatchEndpoint: Map<String, dynamic>.from(
+          json["reelWatchEndpoint"] ?? {}),
+
+      inlineWatch:
+          Map<String, dynamic>.from(json["inlineWatch"] ?? {}),
+
+      /// Extras
+      menu: (json["menu"] is Map)
+          ? Map<String, dynamic>.from(json["menu"])
+          : null,
+      overlayMetadata: (json["overlayMetadata"] is Map)
+          ? Map<String, dynamic>.from(json["overlayMetadata"])
+          : null,
+      loggingDirectives: (json["loggingDirectives"] is Map)
+          ? Map<String, dynamic>.from(json["loggingDirectives"])
+          : null,
+
+      indexInCollection: json["indexInCollection"] is int
+          ? json["indexInCollection"]
+          : int.tryParse(json["indexInCollection"]?.toString() ?? ""), 
+
+      extra: (json["extra"] is Map)
+          ? Map<String, dynamic>.from(json["extra"])
+          : null,
     );
+  }
+
+  /// -------- JSON EXPORT --------
+  Map<String, dynamic> toJson() {
+    return {
+      "videoId": videoId,
+      "shortUrl": shortUrl,
+      "title": title,
+      "views": views,
+      "thumbnailUrl": thumbnailUrl,
+      "thumbnailWidth": thumbnailWidth,
+      "thumbnailHeight": thumbnailHeight,
+      "thumbnails": thumbnails,
+      "reelWatchEndpoint": reelWatchEndpoint,
+      "inlineWatch": inlineWatch,
+      "menu": menu,
+      "overlayMetadata": overlayMetadata,
+      "loggingDirectives": loggingDirectives,
+      "indexInCollection": indexInCollection,
+      "extra": extra,
+    };
   }
 }
