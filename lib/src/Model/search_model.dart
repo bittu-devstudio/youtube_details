@@ -79,7 +79,7 @@ class SearchVideoModel {
 }
 
 /// Full Shorts data model (supports complete YouTube Shorts metadata)
-/// 
+///
 class SearchShortModel {
   /// Basic Info
   final String videoId;
@@ -137,8 +137,7 @@ class SearchShortModel {
   /// -------- JSON PARSER --------
   factory SearchShortModel.fromJson(Map<String, dynamic> json) {
     // Read thumbnails safely
-    final List thumbs =
-        (json["thumbnails"] is List) ? json["thumbnails"] : [];
+    final List thumbs = (json["thumbnails"] is List) ? json["thumbnails"] : [];
 
     final thumb = thumbs.isNotEmpty ? thumbs[0] : null;
 
@@ -161,11 +160,10 @@ class SearchShortModel {
       thumbnails: List<Map<String, dynamic>>.from(thumbs),
 
       /// Endpoints
-      reelWatchEndpoint: Map<String, dynamic>.from(
-          json["reelWatchEndpoint"] ?? {}),
+      reelWatchEndpoint:
+          Map<String, dynamic>.from(json["reelWatchEndpoint"] ?? {}),
 
-      inlineWatch:
-          Map<String, dynamic>.from(json["inlineWatch"] ?? {}),
+      inlineWatch: Map<String, dynamic>.from(json["inlineWatch"] ?? {}),
 
       /// Extras
       menu: (json["menu"] is Map)
@@ -180,7 +178,7 @@ class SearchShortModel {
 
       indexInCollection: json["indexInCollection"] is int
           ? json["indexInCollection"]
-          : int.tryParse(json["indexInCollection"]?.toString() ?? ""), 
+          : int.tryParse(json["indexInCollection"]?.toString() ?? ""),
 
       extra: (json["extra"] is Map)
           ? Map<String, dynamic>.from(json["extra"])

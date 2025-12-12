@@ -491,7 +491,6 @@ class YouTubeDetails {
         .map((v) => SearchVideoModel.fromJson(v))
         .toList();
 
-    
     final shorts = scraper
         .extractShortsRecursive(result["shorts"])
         .map((s) => SearchShortModel.fromJson(s))
