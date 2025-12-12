@@ -2,8 +2,6 @@
 ## 1.1.1 — Code Formatting Improvements 🧹
 - Ran `dart format` across project.
 - Cleaned up unused imports.
-- Removed redundant exports.
-- Improved overall code structure and formatting consistency.
 
 ## 1.1.0
 - Improved package structure.
