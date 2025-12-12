@@ -5,7 +5,6 @@
 - Removed redundant exports.
 - Improved overall code structure and formatting consistency.
 
-
 ## 1.1.0
 - Improved package structure.
 - Added new models and updates to `youtube_scraper`.
