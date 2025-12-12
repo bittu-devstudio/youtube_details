@@ -99,13 +99,7 @@ Future<void> main() async {
     // ---------------------------
     print('\n🎥 Shorts:');
     for (var short in searchResponse.shorts) {
-      print('Title: ${short.title}');
-      print('height: ${short.thumbnailHeight}');
-      print('width: ${short.thumbnailWidth}');
-      print('Short URL: ${short.shortUrl}');
-      print('Views: ${short.views}');
-      print('Thumbnail: ${short.thumbnailUrl}');
-      print('-----------------------------------');
+      print(short.toJson());
     }
   } catch (e) {
     print('\n❌ Error Occurred: $e');
