@@ -14,7 +14,6 @@ import 'package:youtube_details/youtube_details.dart';
 Future<void> main() async {
   // Get singleton instance
   final yt = YouTubeDetails.getInstance;
-
   const channelId = 'byte_coding5339';
   const videoId = 'yhCTP-81tZ0';
 
@@ -82,7 +81,7 @@ Future<void> main() async {
     // ---------------------------
     print('\n🎬 Videos:');
     for (var video in searchResponse.videos) {
-        print(video.toJson());
+      print(video.toJson());
     }
 
     // ---------------------------
